@@ -18,9 +18,13 @@ git remote add origin https://github.com/your-username/your-repo-name.git
 - `your-repo-name` 是你在GitHub上创建的仓库名称。
 - `https://github.com/your-username/your-repo-name.git` 是GitHub仓库的远程地址。(其实有可以直接复制)
 
+### 3. **推送**
+第一次推送要用 `git push -u origin main` ， 从而建立对应关系
+后面就可以直接 `git push` 了
+
 ### 注意事项
 - 如果你的GitHub仓库已经初始化了`README.md`文件，可能会出现冲突。解决方法是先从GitHub拉取最新的代码，然后合并本地代码：
 ```bash
-git pull origin main
+git pull origin main --allow-unrelated-histories
 ```
 如果有冲突，手动解决冲突后，再次提交并推送。
