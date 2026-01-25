@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学习资源导航</title>
+    <style>
+        /* 页面整体背景与字体 */
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: #333;
+        }
+
+        /* 容器样式 */
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 500px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #2d3436;
+            margin-bottom: 1.5rem;
+        }
+
+        /* 列表去重并改为美观的卡片形式 */
+        ol {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            background: white;
+            margin-bottom: 12px;
+            padding: 15px 20px;
+            border-radius: 10px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #eee;
+        }
+
+        li:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-color: #007AFF;
+        }
+
+        /* 链接样式优化 */
+        a {
+            color: #007AFF;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 5px 12px;
+            border-radius: 6px;
+            background: rgba(0, 122, 255, 0.1);
+            transition: all 0.2s;
+        }
+
+        a:hover {
+            background: #007AFF;
+            color: white;
+        }
+
+        /* 分类文字样式 */
+        .category {
+            font-size: 0.9rem;
+            color: #636e72;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>学习资源清单</h2>
+        <ol>
+            <li>
+                <span class="category">算法刷题</span>
+                <a href="https://leetcode.cn/" target="_blank">LeetCode</a>
+            </li>
+            <li>
+                <span class="category">离散数学</span>
+                <a href="https://www.bilibili.com/video/BV1yguazME3s/" target="_blank">Bilibili 课程</a>
+            </li>
+            <li>
+                <span class="category">数据科学</span>
+                <a href="https://www.kaggle.com/" target="_blank">Kaggle</a>
+            </li>
+            <li>
+                <span class="category">Python学习</span>
+                <a href="https://github.com/Asabeneh/30-Days-Of-Python" target="_blank">30天入门</a>
+            </li>
+        </ol>
+    </div>
+</body>
+
+</html>
