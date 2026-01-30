@@ -4,107 +4,215 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>学习资源导航</title>
+    <title>资源桌面</title>
     <style>
-        /* 页面整体背景与字体 */
+        :root {
+            /* 调低饱和度的配色方案 */
+            --bg-color: #f0f2f5;
+            --text-main: #475569;
+            --text-sub: #64748b;
+            --card-glass: rgba(255, 255, 255, 0.4);
+            --accent-soft: #94a3b8;
+            --accent-hover: #475569;
+        }
+
         body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            margin: 0;
+            min-height: 100vh;
             display: flex;
+            flex-direction: column;
+            /* 改为纵向排列以更好控制间距 */
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            color: #333;
+            font-family: 'PingFang SC', 'Hiragino Sans GB', sans-serif;
+            background-color: var(--bg-color);
+            background-image:
+                radial-gradient(at 0% 0%, rgba(203, 213, 225, 0.3) 0, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(203, 213, 225, 0.3) 0, transparent 50%);
+            perspective: 1200px;
+            overflow-x: hidden;
         }
 
-        /* 容器样式 */
-        .container {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 2rem;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            width: 90%;
-            max-width: 500px;
-        }
-
-        h2 {
+        /* 顶部标题：位置下移，减少与下方的间距 */
+        .page-header {
+            margin-top: 80px;
+            /* 使用 margin 替代 absolute 定位以便更好控制相对位置 */
+            margin-bottom: 20px;
+            /* 直接控制与下方卡片的距离 */
             text-align: center;
-            color: #2d3436;
-            margin-bottom: 1.5rem;
+            z-index: 2;
         }
 
-        /* 列表去重并改为美观的卡片形式 */
-        ol {
-            list-style: none;
-            padding: 0;
+        .page-header h1 {
+            font-size: 1.2rem;
+            font-weight: 300;
+            letter-spacing: 0.5em;
+            color: var(--text-sub);
+            margin: 0;
+            text-transform: uppercase;
         }
 
-        li {
-            background: white;
-            margin-bottom: 12px;
-            padding: 15px 20px;
-            border-radius: 10px;
-            transition: transform 0.2s, box-shadow 0.2s;
+        /* 桌面网格布局：每行一个长条 */
+        .desktop-grid {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 1fr;
+            width: 90%;
+            max-width: 600px;
+            gap: 20px;
+            padding: 10px 20px 60px;
+            /* 减小顶部 padding 让卡片贴近标题 */
+        }
+
+        /* 3D 卡片 */
+        .tilt-card {
+            perspective: 1000px;
+        }
+
+        .card-content {
+            background: var(--card-glass);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 20px 40px;
+            border-radius: 20px;
             display: flex;
-            justify-content: space-between;
+            flex-direction: row;
             align-items: center;
-            border: 1px solid #eee;
+            justify-content: space-between;
+            gap: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+
+            transform-style: preserve-3d;
+            transition: transform 0.15s ease-out, background 0.3s, box-shadow 0.3s;
+            will-change: transform;
+            cursor: default;
         }
 
-        li:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            border-color: #007AFF;
+        .card-content:hover {
+            background: rgba(255, 255, 255, 0.6);
+            border-color: rgba(255, 255, 255, 0.9);
         }
 
-        /* 链接样式优化 */
+        .category {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text-main);
+            transform: translateZ(20px);
+            letter-spacing: 1px;
+        }
+
         a {
-            color: #007AFF;
+            background: transparent;
+            color: var(--text-sub);
             text-decoration: none;
-            font-weight: 600;
-            padding: 5px 12px;
-            border-radius: 6px;
-            background: rgba(0, 122, 255, 0.1);
-            transition: all 0.2s;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            border: 1px solid var(--accent-soft);
+            transform: translateZ(40px);
+            transition: all 0.3s ease;
+            white-space: nowrap;
         }
 
         a:hover {
-            background: #007AFF;
+            background: var(--accent-hover);
             color: white;
+            border-color: var(--accent-hover);
+            transform: translateZ(50px) scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
-        /* 分类文字样式 */
-        .category {
-            font-size: 0.9rem;
-            color: #636e72;
-            font-weight: bold;
+        @media (max-width: 640px) {
+            .page-header {
+                margin-top: 40px;
+            }
+
+            .desktop-grid {
+                padding-top: 5px;
+            }
         }
     </style>
 </head>
 
 <body>
-    <div class="container">
-        <h2>学习资源清单</h2>
-        <ol>
-            <li>
+    <header class="page-header">
+        <h1>Resources</h1>
+    </header>
+
+    <div class="desktop-grid">
+        <div class="tilt-card">
+            <div class="card-content">
                 <span class="category">算法刷题</span>
                 <a href="https://leetcode.cn/" target="_blank">LeetCode</a>
-            </li>
-            <li>
+            </div>
+        </div>
+        <div class="tilt-card">
+            <div class="card-content">
                 <span class="category">离散数学</span>
-                <a href="https://www.bilibili.com/video/BV1yguazME3s/" target="_blank">Bilibili 课程</a>
-            </li>
-            <li>
+                <a href="https://www.bilibili.com/video/BV1yguazME3s/" target="_blank">视频课程</a>
+            </div>
+        </div>
+        <div class="tilt-card">
+            <div class="card-content">
                 <span class="category">数据科学</span>
+		<a href="https://www.bilibili.com/video/BV1s4N4z7Ey9/" target="_blank">教程</a>
                 <a href="https://www.kaggle.com/" target="_blank">Kaggle</a>
-            </li>
-            <li>
+            </div>
+        </div>
+        <div class="tilt-card">
+            <div class="card-content">
                 <span class="category">Python学习</span>
                 <a href="https://github.com/Asabeneh/30-Days-Of-Python" target="_blank">30天入门</a>
-            </li>
-        </ol>
+            </div>
+        </div>
+        <div class="tilt-card">
+            <div class="card-content">
+                <span class="category">English</span>
+                <a href="https://typewords.cc/words" target="_blank">背单词</a>
+                <a href="https://myflixerz.to/" target="_blank">视频</a>
+                <a href="https://myflixerz.to/tv/modern-family-39507" target="_blank">modern family</a>
+            </div>
+        </div>
+        <div class="tilt-card">
+            <div class="card-content">
+                <span class="category">AI</span>
+                <a href="https://lmarena.ai/zh" target="_blank">AI</a>
+            </div>
+        </div>
+        <div class="tilt-card">
+            <div class="card-content">
+                <span class="category">灵感</span>
+                <a href="https://de.pinterest.com" target="_blank">设计灵感</a>
+                <a href="https://www.awwwards.com/" target="_blank">前端灵感</a>
+            </div>
+        </div>
     </div>
+
+    <script>
+        const cards = document.querySelectorAll('.card-content');
+
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = ((y - centerY) / centerY) * -5;
+                const rotateY = ((x - centerX) / centerX) * 3;
+
+                card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                card.style.boxShadow = `${-rotateY / 2}px ${rotateX / 2}px 25px rgba(0,0,0,0.05)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `rotateX(0deg) rotateY(0deg)`;
+                card.style.boxShadow = `0 4px 15px rgba(0, 0, 0, 0.02)`;
+            });
+        });
+    </script>
 </body>
 
 </html>
